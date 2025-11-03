@@ -72,17 +72,17 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans text-slate-800 flex items-center justify-center p-4 sm:p-8">
+    <div className="min-h-screen bg-slate-100 font-sans text-slate-800 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl mx-auto">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900">Discover the Omega Pixels Ecosystem</h1>
-          <p className="text-lg text-slate-600 mt-2">
+        <header className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-900">Discover the Omega Pixels Ecosystem</h1>
+          <p className="text-base text-slate-600 mt-2">
             Enhance your Shopify store by connecting powerful apps.
           </p>
         </header>
 
         <div className="relative" ref={containerRef}>
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] lg:gap-12 items-start">
             {/* Column 1: Current App */}
             <div className="flex flex-col items-center lg:items-end z-10">
               <AppCard
@@ -97,11 +97,11 @@ const App: React.FC = () => {
             </div>
             
             {/* Spacer column for large screens */}
-            <div className="hidden lg:block w-32"></div>
+            <div className="hidden lg:block w-24"></div>
 
             {/* Column 2: Recommended Apps */}
-            <div className="flex flex-col items-center lg:items-start z-10 mt-12 lg:mt-0">
-              <div className="space-y-6 w-full max-w-md">
+            <div className="flex flex-col items-center lg:items-start z-10 mt-8 lg:mt-0">
+              <div className="space-y-4 w-full max-w-md">
                 {recommendedApps.map(app => (
                   <AppCard
                     key={app.id}

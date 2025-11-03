@@ -12,8 +12,8 @@ export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
     const renderButton = () => {
       if (isCurrent) {
         return (
-          <div className="flex items-center space-x-2 bg-green-100 text-green-800 text-sm font-semibold px-4 py-2 rounded-lg flex-shrink-0">
-            <CheckCircleIcon className="w-5 h-5" />
+          <div className="flex items-center space-x-1.5 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1.5 rounded-lg flex-shrink-0">
+            <CheckCircleIcon className="w-4 h-4" />
             <span>Active App</span>
           </div>
         );
@@ -22,9 +22,9 @@ export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
       if (app.isInstalled) {
         return (
           <div
-            className="flex items-center space-x-2 bg-slate-200 text-slate-600 text-sm font-semibold px-4 py-2 rounded-lg flex-shrink-0"
+            className="flex items-center space-x-1.5 bg-slate-200 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-lg flex-shrink-0"
           >
-            <CheckCircleIcon className="w-5 h-5 text-green-600" />
+            <CheckCircleIcon className="w-4 h-4 text-green-600" />
             <span>Installed</span>
           </div>
         );
@@ -33,9 +33,9 @@ export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
       return (
         <button
           onClick={() => onInstallToggle?.(app.id)}
-          className="flex items-center space-x-2 bg-black text-white text-sm font-bold px-4 py-2 rounded-lg transition-transform hover:scale-105 hover:bg-gray-800 shadow-md flex-shrink-0"
+          className="flex items-center space-x-1.5 bg-black text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-transform hover:scale-105 hover:bg-gray-800 shadow-md flex-shrink-0"
         >
-          <PlusCircleIcon className="w-5 h-5" />
+          <PlusCircleIcon className="w-4 h-4" />
           <span>Install</span>
         </button>
       );
@@ -44,23 +44,23 @@ export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
     return (
       <div 
         ref={ref}
-        className="relative bg-white p-5 rounded-2xl shadow-lg border border-slate-200/80 w-full max-w-md"
+        className="relative bg-white p-4 rounded-2xl shadow-lg border border-slate-200/80 w-full max-w-md"
       >
-        <div className="flex items-start space-x-4">
-          <img src={app.logo} alt={`${app.name} logo`} className="w-16 h-16 rounded-lg shadow-md" />
+        <div className="flex items-start space-x-3">
+          <img src={app.logo} alt={`${app.name} logo`} className="w-14 h-14 rounded-lg shadow-md" />
           <div className="flex-1 min-w-0">
-            <div className="flex justify-between items-center">
-              <h3 className="font-bold text-lg text-slate-900 pr-4 truncate">{app.name}</h3>
+            <div className="flex justify-between items-start">
+              <h3 className="font-bold text-base text-slate-900 pr-4">{app.name}</h3>
               {renderButton()}
             </div>
-            <p className="text-sm text-slate-500 mt-2">{app.description}</p>
+            <p className="text-xs text-slate-500 mt-1">{app.description}</p>
           </div>
         </div>
 
         {isCurrent ? (
-            <div className="connection-point-start absolute top-1/2 -right-1 h-3 w-3 -translate-y-1/2 bg-slate-300 rounded-full" />
+            <div className="connection-point-start absolute top-1/2 -right-0.5 h-2.5 w-2.5 -translate-y-1/2 bg-slate-300 rounded-full" />
         ) : (
-            <div className="connection-point-end absolute top-1/2 -left-1 h-3 w-3 -translate-y-1/2 bg-slate-300 rounded-full" />
+            <div className="connection-point-end absolute top-1/2 -left-0.5 h-2.5 w-2.5 -translate-y-1/2 bg-slate-300 rounded-full" />
         )}
       </div>
     );
