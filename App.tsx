@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useLayoutEffect, useCallback } from 'react';
 import { AppCard } from './components/AppCard';
 import { ConnectionLines } from './components/ConnectionLines';
@@ -45,9 +44,23 @@ const App: React.FC = () => {
   }, []);
 
   useLayoutEffect(() => {
+    // We run calculatePositions() here and then again in a requestAnimationFrame.
+    // This addresses a race condition where positions might be calculated
+    // before the browser has fully rendered the layout, especially when
+    // dealing with images or custom fonts. The second calculation ensures
+    // the lines are drawn correctly once the layout is stable.
     calculatePositions();
+    
+    const animationFrameId = requestAnimationFrame(() => {
+      calculatePositions();
+    });
+
     window.addEventListener('resize', calculatePositions);
-    return () => window.removeEventListener('resize', calculatePositions);
+    
+    return () => {
+      window.removeEventListener('resize', calculatePositions);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, [calculatePositions]);
   
   const handleInstallToggle = (id: string) => {
