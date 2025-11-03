@@ -7,6 +7,7 @@ export interface AppInfo {
   appStoreUrl: string;
   color: string;
   isInstalled: boolean;
+  discountCode?: string;
 }
 
 export interface Point {

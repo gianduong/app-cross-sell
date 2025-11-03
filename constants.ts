@@ -20,6 +20,7 @@ export const OMEGA_APPS: AppInfo[] = [
     appStoreUrl: '#',
     color: '#000000', // TikTok Black
     isInstalled: false,
+    discountCode: 'TIKTOK-24',
   },
   {
     id: 'trakpilot',
@@ -29,6 +30,7 @@ export const OMEGA_APPS: AppInfo[] = [
     appStoreUrl: '#',
     color: '#6A5ACD', // SlateBlue
     isInstalled: false,
+    discountCode: 'GOOGLE-15',
   },
   {
     id: 'twitter-pixel',
@@ -56,5 +58,6 @@ export const OMEGA_APPS: AppInfo[] = [
     appStoreUrl: '#',
     color: '#FFFC00', // Snapchat Yellow
     isInstalled: false,
+    discountCode: 'SNAP-2024',
   },
 ];

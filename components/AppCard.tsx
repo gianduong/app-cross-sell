@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState, useCallback } from 'react';
 import type { AppInfo } from '../types';
 
 interface AppCardProps {
@@ -9,6 +9,21 @@ interface AppCardProps {
 
 export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
   ({ app, isCurrent, onInstallToggle }, ref) => {
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleCopyCode = useCallback(() => {
+      if (!app.discountCode || isCopied) return;
+
+      navigator.clipboard.writeText(app.discountCode).then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy code: ', err);
+      });
+    }, [app.discountCode, isCopied]);
+
     const renderButton = () => {
       if (isCurrent) {
         return (
@@ -54,6 +69,28 @@ export const AppCard = forwardRef<HTMLDivElement, AppCardProps>(
               {renderButton()}
             </div>
             <p className="text-xs text-slate-500 mt-1">{app.description}</p>
+            
+            {!isCurrent && !app.isInstalled && app.discountCode && (
+              <button
+                onClick={handleCopyCode}
+                aria-label={`Copy discount code ${app.discountCode}`}
+                className="mt-2 inline-flex items-center gap-1.5 border border-dashed border-amber-500 bg-amber-50 text-amber-800 rounded-md px-2 py-1 transition-colors hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              >
+                {isCopied ? (
+                  <>
+                    <CheckCircleIcon className="w-3.5 h-3.5 text-green-600" />
+                    <p className="text-[10px] font-medium text-green-700">Copied!</p>
+                  </>
+                ) : (
+                  <>
+                    <TagIcon className="w-3.5 h-3.5" />
+                    <p className="text-[10px] font-medium">
+                      Use code: <span className="font-bold">{app.discountCode}</span>
+                    </p>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
 
@@ -78,5 +115,11 @@ const CheckCircleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 const PlusCircleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+  </svg>
+);
+
+const TagIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6.75a4.5 4.5 0 1 1-6.364 6.364l-4.546 4.546-1.06-1.06 4.546-4.546a4.5 4.5 0 0 1 6.364-6.364m2.25 2.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
   </svg>
 );
